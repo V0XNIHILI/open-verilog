@@ -7,7 +7,7 @@ module full_adder
 		output carry_out
 	);
 
-	wire   a_xor_b;
+	wire a_xor_b;
 		
 	assign a_xor_b = a ^ b;
 

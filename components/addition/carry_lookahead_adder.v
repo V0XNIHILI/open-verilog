@@ -12,8 +12,6 @@ module carry_lookahead_adder
     );
         
     wire [WIDTH:0] carry;
-    wire [WIDTH-1:0] generate_bits; // Called generate_bits because generate is a reserved keyword in Verilog
-    wire [WIDTH-1:0] propagate;
 
     genvar i;
     generate

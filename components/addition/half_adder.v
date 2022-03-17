@@ -6,7 +6,7 @@ module half_adder
 		output carry_out
 	);
 
-	assign sum   = a ^ b;
+	assign sum = a ^ b;
 	assign carry_out = a & b;
 	
 endmodule
