@@ -9,9 +9,6 @@ module carry_save_adder
         output [WIDTH-1:0] sum,
         output [WIDTH-1:0] carry_out
     );
-    
-    wire [WIDTH-1:0] carry;
-    wire [WIDTH-1:0] result;
 
     genvar i;
     generate 
@@ -22,14 +19,10 @@ module carry_save_adder
                     .a(a[i]),
                     .b(b[i]),
                     .carry_in(c[i]),
-                    .sum(result[i]),
-                    .carry_out(carry[i])
+                    .sum(sum[i]),
+                    .carry_out(carry_out[i])
                 );
             end
     endgenerate
-
-    assign carry_out = carry;
-
-    assign sum = result;
     
 endmodule
