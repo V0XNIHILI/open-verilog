@@ -1,3 +1,5 @@
+`include "full_adder_generation_propagation.v"
+
 module full_adder 
 	(
 		input a,
@@ -7,11 +9,15 @@ module full_adder
 		output carry_out
 	);
 
-	wire a_xor_b;
-		
-	assign a_xor_b = a ^ b;
-
-	assign sum = a_xor_b ^ carry_in;
-	assign carry_out = (a_xor_b & carry_in) | (a & b);
+	full_adder_generation_propagation full_adder_generation_propagation_inst
+	( 
+		.a(a),
+		.b(b),
+		.carry_in(carry_in),
+		.p(),
+		.g(),
+		.sum(sum),
+		.carry_out(carry_out)
+	);
 	
 endmodule

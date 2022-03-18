@@ -1,22 +1,8 @@
 `include "half_adder.v"
-
-module kogge_stone_cell
-    (
-        input p_i,
-        input g_i,
-        input p_i_prev,
-        input g_i_prev,
-        output p,
-        output g
-    );
-    
-    assign p = p_i & p_i_prev;
-    assign g = (p_i & g_i_prev) | g_i;
-    
-endmodule
+`include "generate_propagate_cell.v"
 
 module kogge_stone_adder
-    #(parameter WIDTH = 8)
+    #(parameter WIDTH = 32)
     (
         input [WIDTH - 1:0] a,
         input [WIDTH - 1:0] b,
@@ -64,7 +50,7 @@ module kogge_stone_adder
                 genvar i;
                 for (i = 0; i < LEVEL_WIDTH; i = i + 1) 
                 begin
-                    kogge_stone_cell kogge_stone_cell_inst
+                    generate_propagate_cell generate_propagate_cell_inst
                     ( 
                         .p_i(j == 0 ? initial_ps[i + LEVEL_OFFSET - 1] : stage[j - 1].intermediate_ps[i]),
                         .g_i(j == 0 ? initial_gs[i + LEVEL_OFFSET - 1] : stage[j - 1].intermediate_gs[i]),
