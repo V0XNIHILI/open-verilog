@@ -1,0 +1,22 @@
+# Generated verilog files
+components/boolean_algebra/*4.v
+components/boolean_algebra/*3.v
+
+# Binaries from compiling tests
+tb.dSYM
+*.o
+
+# Yosys generated test files
+*_test.cpp
+*.v.cpp
+
+# Output plots
+*.dot
+*.ps
+*.svg
+
+# Editors
+.vscode
+
+# macOS
+.DS_Store
