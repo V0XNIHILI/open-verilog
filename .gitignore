@@ -1,6 +1,6 @@
 # Generated verilog files
-components/boolean_algebra/*4.v
-components/boolean_algebra/*3.v
+src/boolean_algebra/*4.v
+src/boolean_algebra/*3.v
 
 # Binaries from compiling tests
 tb.dSYM

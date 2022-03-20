@@ -5,13 +5,14 @@ module ripple_carry_adder
     (
         input [WIDTH-1:0] a,
         input [WIDTH-1:0] b,
+        input carry_in,
         output [WIDTH-1:0] sum,
         output carry_out
     );
     
     wire [WIDTH:0] carry;
 
-    assign carry[0] = 1'b0;
+    assign carry[0] = carry_in;
 
     genvar i;
     generate 
