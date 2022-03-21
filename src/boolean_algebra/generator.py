@@ -4,13 +4,13 @@ operators = [("xor", "xnor", "^"), ("and", "nand", "&"), ("or", "nor", "|")]
 
 
 def generate_3_4_input_boolean_operators_verilog():
-    with open("boolean_function.v.jinja2") as t:
+    with open("boolean_operator.v.jinja2") as t:
         template = Template(t.read())
 
         for op, nop, op_symbol in operators:
             for size in [3, 4]:
                 for (opToWrite, negate) in zip([op, nop], [False, True]):
-                    with open(op + str(size) + ".v", "w") as r:
+                    with open(opToWrite + str(size) + ".v", "w") as r:
                         r.write(
                             template.render(
                                 operator=opToWrite,
