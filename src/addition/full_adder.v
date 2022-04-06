@@ -1,3 +1,6 @@
+`ifndef __FULL_ADDER_V__
+`define __FULL_ADDER_V__
+
 `include "full_adder_generation_propagation.v"
 
 module full_adder 
@@ -19,5 +22,6 @@ module full_adder
 		.sum(sum),
 		.carry_out(carry_out)
 	);
-	
+
 endmodule
+`endif
