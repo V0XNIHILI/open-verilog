@@ -1,3 +1,6 @@
+`ifndef __GENERATE_PROPAGATE_CELL_V__
+`define __GENERATE_PROPAGATE_CELL_V__
+
 module generate_propagate_cell
     (
         input p_i,
@@ -12,3 +15,5 @@ module generate_propagate_cell
     assign g = (p_i & g_i_prev) | g_i;
     
 endmodule
+
+`endif

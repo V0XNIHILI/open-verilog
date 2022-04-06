@@ -24,4 +24,5 @@ module full_adder
 	);
 
 endmodule
+
 `endif

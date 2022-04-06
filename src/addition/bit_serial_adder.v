@@ -1,3 +1,6 @@
+`ifndef __BIT_SERIAL_ADDER_V__
+`define __BIT_SERIAL_ADDER_V__
+
 `include "full_adder.v"
 
 module bit_serial_adder 
@@ -32,3 +35,5 @@ module bit_serial_adder
     end
 
 endmodule
+
+`endif
