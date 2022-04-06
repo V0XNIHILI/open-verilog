@@ -1,5 +1,6 @@
 `include "carry_save_adder.v"
 `include "ripple_carry_adder.v"
+`include "../multiplexing/two_to_one_mux.v"
 
 module fast_modular_adder
 	#(parameter WIDTH = 8, M = 127)
@@ -47,6 +48,12 @@ module fast_modular_adder
 		.carry_out()
 	);
 
-	assign sum = (modular_sum[WIDTH-1] == 1'b1) ? regular_sum : modular_sum;
+	two_to_one_mux  #(.WIDTH(WIDTH)) two_to_one_mux_inst
+	( 
+		.d0(modular_sum),
+		.d1(regular_sum),
+		.select(modular_sum[WIDTH-1]),
+		.y(sum)
+	);
 	
 endmodule
