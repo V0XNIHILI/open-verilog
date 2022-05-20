@@ -1,8 +1,6 @@
 `ifndef __FULL_ADDER_V__
 `define __FULL_ADDER_V__
 
-`include "full_adder_generation_propagation.v"
-
 module full_adder 
 	(
 		input a,
@@ -12,16 +10,12 @@ module full_adder
 		output carry_out
 	);
 
-	full_adder_generation_propagation full_adder_generation_propagation_inst
-	( 
-		.a(a),
-		.b(b),
-		.carry_in(carry_in),
-		.p(),
-		.g(),
-		.sum(sum),
-		.carry_out(carry_out)
-	);
+	wire a_xor_b = a ^ b;
+	wire carry_in_and_a_xor_b = carry_in & a_xor_b;
+	wire a_and_b = a & b;
+
+	assign sum = a_xor_b ^ carry_in;
+	assign carry_out = carry_in_and_a_xor_b | a_and_b;
 
 endmodule
 
