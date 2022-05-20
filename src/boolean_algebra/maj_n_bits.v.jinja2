@@ -1,0 +1,17 @@
+module maj_{{ width }}_bits
+    (
+        input [{{ width - 1 }}:0] a,
+        output z
+    );
+
+    wire [{{ final_nand_width - 1 }}:0] intermediate;
+    {% for comb in combs %}{% set outer_loop = loop %}
+    wire [{{ half_width - 1 }}:0] group_{{ loop.index }};
+    {% for index in comb %}
+    assign group_{{ outer_loop.index }}[{{ loop.index - 1 }}] = a[{{ index }}];{% endfor %}
+    
+    assign intermediate[{{ loop.index - 1 }}] = ~& group_{{ loop.index }};
+    {% endfor %}
+    assign z = ~& intermediate;
+    
+endmodule
