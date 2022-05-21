@@ -1,7 +1,8 @@
 # Generated verilog files
 src/boolean_algebra/*4.v
 src/boolean_algebra/*3.v
-src/boolean_algebra/maj_**_bits.v
+src/boolean_algebra/maj_**_bit.v
+src/addition/parallel_counter_**_bit.v
 
 # Binaries from compiling tests
 tb.dSYM

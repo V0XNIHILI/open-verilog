@@ -11,10 +11,10 @@ def generate_n_bit_majority_gate_verilog():
     combs = list(map(lambda x: list(x), combinations(
         list(range(MAJORITY_GATE_WIDTH)), majority_gate_half_width)))
 
-    with open("maj_n_bits.v.jinja2") as t:
+    with open("maj_n_bit.v.jinja2") as t:
         template = Template(t.read())
 
-        with open("maj_" + str(MAJORITY_GATE_WIDTH) + "_bits.v", "w") as r:
+        with open("maj_" + str(MAJORITY_GATE_WIDTH) + "_bit.v", "w") as r:
             r.write(
                 template.render(
                     width=MAJORITY_GATE_WIDTH,
