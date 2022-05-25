@@ -1,0 +1,39 @@
+`include "three_to_two_compressor.v"
+`include "half_adder.v"
+
+module wallace_popcount_{{ width }}_bit
+    (
+        input [{{ width - 1 }}:0] a,
+        output [{{ output_width - 1 }}:0] sum
+    );
+    {% for row in row_sizes %}{% set outer_loop = loop %}{% for col in row %}{% if col != 0 %}
+    wire [{{ col - 1 }}:0] layer_{{ outer_loop.index }}_column_{{ loop.index }};{% endif %}{% endfor %}{% endfor %}
+
+    {% for col in range(output_width) %}
+    wire [0:0] layer_{{ row_sizes|length + 1 }}_column_{{ col + 1 }};{% endfor %}
+
+    assign layer_1_column_{{ output_width }} = a;
+    {% for row in row_mapping %}{% set row_loop = loop %}{% for col in row %}{% set col_loop = loop %}{% if col != [] %}{% for cell in col %}{% set cell_loop = loop %}{% if cell[0] == "fa" %}
+    three_to_two_compressor three_to_two_compressor_inst_{{ row_loop.index }}_{{ col_loop.index }}_{{ cell_loop.index }}
+	( 
+		.a(layer_{{ row_loop.index }}_column_{{ col_loop.index }}[{{ cell[1][0] }}]),
+		.b(layer_{{ row_loop.index }}_column_{{ col_loop.index }}[{{ cell[1][1] }}]),
+		.carry_in(layer_{{ row_loop.index }}_column_{{ col_loop.index }}[{{ cell[1][2] }}]),
+		.sum(layer_{{ row_loop.index + 1 }}_column_{{ col_loop.index }}[{{ cell[2]['current_col'] }}]),
+		.carry_out(layer_{{ row_loop.index + 1 }}_column_{{ col_loop.index - 1 }}[{{ cell[2]['prev_col'] }}])
+	);
+    {% elif cell[0] == "ha" %}
+    half_adder half_adder_inst_{{ row_loop.index }}_{{ col_loop.index }}_{{ cell_loop.index }}
+	( 
+		.a(layer_{{ row_loop.index }}_column_{{ col_loop.index }}[{{ cell[1][0] }}]),
+		.b(layer_{{ row_loop.index }}_column_{{ col_loop.index }}[{{ cell[1][1] }}]),
+		.sum(layer_{{ row_loop.index + 1 }}_column_{{ col_loop.index }}[{{ cell[2]['current_col'] }}]),
+		.carry_out(layer_{{ row_loop.index + 1 }}_column_{{ col_loop.index - 1 }}[{{ cell[2]['prev_col'] }}])
+	);
+    {% elif cell[0] == "pt" %}
+    assign layer_{{ row_loop.index + 1 }}_column_{{ col_loop.index }}[{{ cell[2]['current_col'] }}] = layer_{{ row_loop.index }}_column_{{ col_loop.index }}[{{ cell[1][0] }}];
+    {% endif %}{% endfor %}{% endif %}{% endfor %}{% endfor %}
+    {% for col in range(output_width) %}
+    assign sum[{{ output_width - col - 1 }}] = layer_{{ row_sizes|length + 1 }}_column_{{ col + 1 }}[0];{% endfor %}
+    
+endmodule
