@@ -6,6 +6,6 @@ module relu
 		output [WIDTH-1:0] z,
 	);
 
-	assign z = (sign == 1'b1) ? ZERO : sum;
+	assign z = (sign == 1'b1) ? ZERO : a;
 	
 endmodule
