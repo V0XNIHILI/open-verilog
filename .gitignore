@@ -18,6 +18,9 @@ tb.dSYM
 *.ps
 *.svg
 
+# Output files
+*.vcd
+
 # Editors
 .vscode
 
