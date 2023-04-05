@@ -1,23 +1,19 @@
-module bidirectional_shift_register
+module right_shift_register_base
     #(parameter SIZE=8)
     (
         input in,                      
         input clk,                   
         input enable,                    
-        input direction, // 0: shift left, 1: shift right
         input reset,                  
         output reg [SIZE-1:0] out
     );  
 
    always@(posedge clk)
-        if (reset)
+        if (reset == 1'b1)
             out <= 0;
         else begin
             if (enable)
-                case (direction)
-                    0 :  out <= {out[SIZE-2:0], in};
-                    1 :  out <= {in, out[SIZE-1:1]};
-                endcase
+                out <= {in, out[SIZE-1:1]};
             else
                 out <= out;
         end
