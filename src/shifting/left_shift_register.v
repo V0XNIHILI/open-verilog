@@ -1,4 +1,4 @@
-`include "../left_shift_register_base.v"
+`include "left_shift_register_base.v"
 
 module left_shift_register
     #(parameter SIZE=8)
