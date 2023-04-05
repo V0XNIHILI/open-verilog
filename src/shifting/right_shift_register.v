@@ -1,23 +1,23 @@
 `include "right_shift_register_base.v"
 
 module right_shift_register
-    #(parameter SIZE=8)
+    #(parameter DEPTH=8)
     (
-        input in,                      
-        input clk,                   
-        input enable,                    
-        input reset,                  
+        input clk, 
+        input reset,      
+        input in,                                     
+        input enable,                                   
         output out
     );
 
-    wire [SIZE-1:0] full_out;
+    wire [DEPTH-1:0] full_out;
 
-    right_shift_register_base #(.SIZE(SIZE)) right_shift_register_base_inst
+    right_shift_register_base #(.DEPTH(DEPTH)) right_shift_register_base_inst
     (
-        .in(in),
         .clk(clk),
-        .enable(enable),
         .reset(reset),
+        .in(in),
+        .enable(enable),
         .out(full_out)
     );
 

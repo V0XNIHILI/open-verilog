@@ -1,26 +1,26 @@
 `include "left_shift_register_base.v"
 
 module left_shift_register
-    #(parameter SIZE=8)
+    #(parameter DEPTH=8)
     (
-        input in,                      
-        input clk,                   
-        input enable,                    
-        input reset,                  
+        input clk,    
+        input reset,  
+        input in,                                     
+        input enable,                                    
         output out
     );
 
-    wire [SIZE-1:0] full_out;
+    wire [DEPTH-1:0] full_out;
 
-    left_shift_register_base #(.SIZE(SIZE)) left_shift_register_base_inst
+    left_shift_register_base #(.DEPTH(DEPTH)) left_shift_register_base_inst
     (
-        .in(in),
         .clk(clk),
-        .enable(enable),
         .reset(reset),
+        .in(in),
+        .enable(enable),
         .out(full_out)
     );
 
-    assign out = full_out[SIZE-1];
+    assign out = full_out[DEPTH-1];
         
 endmodule

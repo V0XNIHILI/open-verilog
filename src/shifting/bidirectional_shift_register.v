@@ -1,12 +1,12 @@
 module bidirectional_shift_register
-    #(parameter SIZE=8)
+    #(parameter DEPTH=8)
     (
-        input in,                      
-        input clk,                   
+        input clk,
+        input reset,
+        input in,                                     
         input enable,                    
-        input direction, // 0: shift left, 1: shift right
-        input reset,                  
-        output reg [SIZE-1:0] out
+        input direction, // 0: shift left, 1: shift right                
+        output reg [DEPTH-1:0] out
     );  
 
    always@(posedge clk)
@@ -15,8 +15,8 @@ module bidirectional_shift_register
         else begin
             if (enable)
                 case (direction)
-                    0 :  out <= {out[SIZE-2:0], in};
-                    1 :  out <= {in, out[SIZE-1:1]};
+                    0 :  out <= {out[DEPTH-2:0], in};
+                    1 :  out <= {in, out[DEPTH-1:1]};
                 endcase
             else
                 out <= out;
