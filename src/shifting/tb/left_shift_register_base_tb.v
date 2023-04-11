@@ -13,8 +13,10 @@ module left_shift_register_base_tb;
         input [DEPTH-1:0] expected;
         input [DEPTH-1:0] actual;
         begin
-            if (actual !== expected)
+            if (actual !== expected) begin
                 $display("Failed. Expected: %b, actual: %b", expected, actual);
+                $stop;
+            end
         end
     endtask
 
@@ -44,7 +46,7 @@ module left_shift_register_base_tb;
         // Try writing without enabling
         # 9 reset = 1; # 1; print_if_failed(8'b0, out);
         # 9 reset = 0; in = 1; enable = 0; # 1; print_if_failed(8'b0, out);
-        # 0 $stop;
+        # 0 $finish;
     end
 
     /* Make a regular pulsing clock. */

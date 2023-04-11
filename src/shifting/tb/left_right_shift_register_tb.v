@@ -16,8 +16,10 @@ module left_right_shift_register_tb;
         input actual_right;
         input actual_left;
         begin
-            if (actual_right !== expected || actual_left !== expected)
+            if (actual_right !== expected || actual_left !== expected) begin
                 $display("Failed. Expected: %b, actual right: %b, actual left: %b", expected, actual_right, actual_left);
+                $stop;
+            end
         end
     endtask
 
@@ -47,7 +49,7 @@ module left_right_shift_register_tb;
         # 9 in = 0; # 1; print_if_failed(1'b0, r_out, l_out);
         # 9 in = 0; # 1; print_if_failed(1'b1, r_out, l_out);
         # 9 in = 0; reset = 1; # 1; print_if_failed(1'b0, r_out, l_out);
-        # 0 $stop;
+        # 0 $finish;
     end
 
     /* Make a regular pulsing clock. */
