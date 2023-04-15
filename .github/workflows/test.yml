@@ -1,0 +1,24 @@
+name: Run all Verilog test benches
+
+# Run this workflow every time a new commit pushed to your repository
+on: [push]
+
+jobs:
+  build-and-analyze:
+    runs-on: ubuntu-latest
+
+    steps:
+    - run: |
+        echo "Install required dependencies"
+        sudo apt-get update
+        sudo apt-get install iverilog
+        sudo apt-get install verilator
+
+    - run: |
+        echo "Set executable permission on script file"
+        cd src
+        chmod +x ./run_testbenches.sh
+        
+    - run: |
+        echo "Running all testbenches"
+        ./run_testbenches.sh

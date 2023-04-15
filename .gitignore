@@ -24,5 +24,8 @@ tb.dSYM
 # Editors
 .vscode
 
+# iverilog
+*.iv
+
 # macOS
 .DS_Store
