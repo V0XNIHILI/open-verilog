@@ -4,7 +4,7 @@
 // Based on: https://www.chipverify.com/verilog/verilog-single-port-ram
 
 module single_port_sram
-    #(parameter WIDTH = 32, parameter DEPTH = 16, parameter ADDR_WIDTH = $clog2(DEPTH))
+    #(parameter WIDTH = 32, parameter DEPTH = 16)
     (
         input clk,
         input [ADDR_WIDTH-1:0] address,
@@ -13,6 +13,8 @@ module single_port_sram
         input write_enable,
         input output_enable
     );
+
+    localparam  ADDR_WIDTH = $clog2(DEPTH);
 
     reg [WIDTH-1:0] memory [DEPTH-1:0];
     reg [WIDTH-1:0] tmp_data;
@@ -27,7 +29,7 @@ module single_port_sram
         end
     end
 
-    assign data = chip_select & output_enable & !write_enable ? tmp_data : 'hz;
+    assign data = (chip_select & output_enable & !write_enable) ? tmp_data : 'hz;
 
 endmodule
 
