@@ -14,6 +14,9 @@ jobs:
         sudo apt-get install iverilog
         sudo apt-get install verilator
 
+    - name: Check out repository code
+      uses: actions/checkout@v3
+      
     - run: |
         echo "Set executable permission on script file"
         cd src
