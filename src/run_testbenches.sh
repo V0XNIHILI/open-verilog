@@ -6,7 +6,7 @@ TB_LIST=`find . -name "*_tb.v" | sort`
 for tb in $TB_LIST
 do
     FILE_NAME=`basename $tb`
-    echo "Running testbench for $FILE_NAME"
+    echo "\nRunning testbench for $FILE_NAME:"
     
     # cd into the directory of the testbench
     cd `dirname $tb`/../
@@ -19,6 +19,10 @@ do
         echo "Testbench failed with exit code $EXIT_CODE"
         exit $EXIT_CODE
     fi
+
+    echo "Testbench $FILE_NAME passed!"
     
     cd ../
 done
+
+echo "\nAll testbenches passed!"
