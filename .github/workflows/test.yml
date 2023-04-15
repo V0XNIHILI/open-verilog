@@ -24,4 +24,5 @@ jobs:
         
     - run: |
         echo "Running all testbenches"
+        cd src
         ./run_testbenches.sh
