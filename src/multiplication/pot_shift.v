@@ -8,7 +8,7 @@ module pot_shift
 
     // Output bit width is the sum of input bit width and maximum possible
     // right shift, which is equal to 2^WEIGHT_BIT_WIDTH for each
-    parameter OUTPUT_BIT_WIDTH = INPUT_BIT_WIDTH+2**WEIGHT_BIT_WIDTH;
+    localparam OUTPUT_BIT_WIDTH = INPUT_BIT_WIDTH+2**WEIGHT_BIT_WIDTH;
 
     wire weight_sign = weight[WEIGHT_BIT_WIDTH-1];
     wire [WEIGHT_BIT_WIDTH-2:0] weight_abs = weight[WEIGHT_BIT_WIDTH-2:0];
