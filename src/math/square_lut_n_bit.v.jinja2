@@ -1,0 +1,12 @@
+module square_lut_{{bit_width}}_bit
+    (
+        input signed [WIDTH-1:0] in,
+        output signed [2*WIDTH-1:0] out
+    );
+
+    localparam WIDTH = {{bit_width}};
+
+    assign out = 
+{{lut}}
+
+endmodule
