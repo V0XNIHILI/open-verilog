@@ -44,7 +44,7 @@ def generate_n_bit_square_lut_verilog(bit_width: int, lut_str: str):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("-n", "--n_bit", type=int, help="The bit width of the square LUT")
+    parser.add_argument("-n", "--n_bit", type=int, help="The bit width of the square LUT", default=4)
     args = parser.parse_args()
 
     bit_width = args.n_bit
