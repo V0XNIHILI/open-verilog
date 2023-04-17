@@ -26,7 +26,7 @@ module serial_argmax_tb;
 
     initial
     begin
-        $dumpfile("serial_argmax.vcd");
+        $dumpfile("serial_argmax_tb.vcd");
         $dumpvars(0,clk,rst,in,argmax);
     end
 
