@@ -1,6 +1,6 @@
 # Addition
 
-All adders are designed to operate in one clock cycle.
+All adders are implemented as combinational circuits.
 
 <!-- ## Carry Save Adder
 
