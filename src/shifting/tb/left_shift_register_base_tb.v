@@ -1,4 +1,5 @@
 `include "left_shift_register_base.v"
+`include "../tasks.v"
 
 module left_shift_register_base_tb;
     parameter DEPTH = 8;
@@ -7,18 +8,7 @@ module left_shift_register_base_tb;
     reg reset = 0;
 
     reg in = 0;
-    wire [8-1:0] out;
-
-    task print_if_failed;
-        input [DEPTH-1:0] expected;
-        input [DEPTH-1:0] actual;
-        begin
-            if (actual !== expected) begin
-                $display("Failed. Expected: %b, actual: %b", expected, actual);
-                $stop;
-            end
-        end
-    endtask
+    wire [DEPTH-1:0] out;
 
     initial
     begin
@@ -28,24 +18,24 @@ module left_shift_register_base_tb;
 
     initial begin
         # 0 reset = 1; enable = 1;
-        # 6 reset = 0; print_if_failed(8'b0, out);
+        # 6 reset = 0; tasks.print_if_failed(8'b0, out);
 
-        # 9 in = 1; # 1; print_if_failed(8'b00000001, out);
-        # 9 in = 0; # 1; print_if_failed(8'b00000010, out);
-        # 9 in = 1; # 1; print_if_failed(8'b00000101, out);
-        # 9 in = 0; # 1; print_if_failed(8'b00001010, out);
-        # 9 reset = 1; # 1; print_if_failed(8'b0, out);
+        # 9 in = 1; # 1; tasks.print_if_failed(8'b00000001, out);
+        # 9 in = 0; # 1; tasks.print_if_failed(8'b00000010, out);
+        # 9 in = 1; # 1; tasks.print_if_failed(8'b00000101, out);
+        # 9 in = 0; # 1; tasks.print_if_failed(8'b00001010, out);
+        # 9 reset = 1; # 1; tasks.print_if_failed(8'b0, out);
         // Try the sequence 11010110
-        # 9 reset = 0; in = 1; # 1; print_if_failed(8'b00000001, out);
-        # 9 in = 1; # 1; print_if_failed(8'b00000011, out);
-        # 9 in = 0; # 1; print_if_failed(8'b00000110, out);
-        # 9 in = 1; # 1; print_if_failed(8'b00001101, out);
-        # 9 in = 0; # 1; print_if_failed(8'b00011010, out);
-        # 9 in = 1; # 1; print_if_failed(8'b00110101, out);
-        # 9 in = 1; # 1; print_if_failed(8'b01101011, out);
+        # 9 reset = 0; in = 1; # 1; tasks.print_if_failed(8'b00000001, out);
+        # 9 in = 1; # 1; tasks.print_if_failed(8'b00000011, out);
+        # 9 in = 0; # 1; tasks.print_if_failed(8'b00000110, out);
+        # 9 in = 1; # 1; tasks.print_if_failed(8'b00001101, out);
+        # 9 in = 0; # 1; tasks.print_if_failed(8'b00011010, out);
+        # 9 in = 1; # 1; tasks.print_if_failed(8'b00110101, out);
+        # 9 in = 1; # 1; tasks.print_if_failed(8'b01101011, out);
         // Try writing without enabling
-        # 9 reset = 1; # 1; print_if_failed(8'b0, out);
-        # 9 reset = 0; in = 1; enable = 0; # 1; print_if_failed(8'b0, out);
+        # 9 reset = 1; # 1; tasks.print_if_failed(8'b0, out);
+        # 9 reset = 0; in = 1; enable = 0; # 1; tasks.print_if_failed(8'b0, out);
         # 0 $finish;
     end
 

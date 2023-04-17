@@ -11,6 +11,28 @@ module left_right_shift_register_tb;
     wire l_out;
     wire r_out;
 
+    /* Make a regular pulsing clock. */
+    reg clk = 0;
+    always #5 clk = !clk;
+
+    left_shift_register #(.DEPTH(DEPTH)) left_shift_register_inst
+    (
+        .clk(clk),
+        .reset(reset),
+        .in(in),
+        .enable(enable),
+        .out(l_out)
+    );
+    
+    right_shift_register #(.DEPTH(DEPTH)) right_shift_register_inst
+    (
+        .clk(clk),
+        .reset(reset),
+        .in(in),
+        .enable(enable),
+        .out(r_out)
+    );
+
     task print_if_failed;
         input expected;
         input actual_right;
@@ -51,27 +73,5 @@ module left_right_shift_register_tb;
         # 9 in = 0; reset = 1; # 1; print_if_failed(1'b0, r_out, l_out);
         # 0 $finish;
     end
-
-    /* Make a regular pulsing clock. */
-    reg clk = 0;
-    always #5 clk = !clk;
-
-    left_shift_register #(.DEPTH(DEPTH)) left_shift_register_inst
-    (
-        .clk(clk),
-        .reset(reset),
-        .in(in),
-        .enable(enable),
-        .out(l_out)
-    );
-    
-    right_shift_register #(.DEPTH(DEPTH)) right_shift_register_inst
-    (
-        .clk(clk),
-        .reset(reset),
-        .in(in),
-        .enable(enable),
-        .out(r_out)
-    );
 
 endmodule // left_right_shift_register_tb

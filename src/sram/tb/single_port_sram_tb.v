@@ -1,4 +1,5 @@
 `include "single_port_sram.v"
+`include "../tasks.v"
 
 module single_port_sram_tb;
     localparam WIDTH = 32;
@@ -24,17 +25,6 @@ module single_port_sram_tb;
     reg cs = 0;
     reg we = 0;
     reg oe = 0;
-
-    task print_if_failed;
-        input integer expected;
-        input integer actual;
-        begin
-            if (actual !== expected) begin
-                $display("Failed. Expected: %d, actual: %d", expected, actual);
-                $stop;
-            end
-        end
-    endtask
 
     task fill_sram;
         input local_we;
@@ -62,7 +52,7 @@ module single_port_sram_tb;
                 end
 
                 if (i >= 2)
-                    print_if_failed(local_oe ? random_numbers[i-2] : data_reg, data);
+                    tasks.print_if_failed(local_oe ? random_numbers[i-2] : data_reg, data);
             end
         end
     endtask

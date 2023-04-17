@@ -1,4 +1,5 @@
 `include "pot_shift.v"
+`include "../tasks.v"
 
 module pot_shift_tb;
     parameter OUTPUT_BIT_WIDTH = 20;
@@ -14,17 +15,6 @@ module pot_shift_tb;
     reg [WEIGHT_BIT_WIDTH-1:0] weight = 4'b1000;
     wire signed [OUTPUT_BIT_WIDTH-1:0] out;
 
-    task print_if_failed;
-        input integer expected;
-        input integer actual;
-        begin
-            if (actual !== expected) begin
-                $display("Failed. Expected: %d, actual: %d", expected, actual);
-                $stop;
-            end
-        end
-    endtask
-
     pot_shift #(.WEIGHT_BIT_WIDTH(WEIGHT_BIT_WIDTH), .INPUT_BIT_WIDTH(INPUT_BIT_WIDTH)) pot_shift_inst
     (
         .in(in),
@@ -35,19 +25,19 @@ module pot_shift_tb;
     initial begin
         // Check zero input handling
         weight = 4'b0000; in = 4'b0000; # 0;
-        print_if_failed(0, out);
+        tasks.print_if_failed(0, out);
 
         weight = 4'b0001; in = 4'b0000; # 0;
-        print_if_failed(0, out);
+        tasks.print_if_failed(0, out);
 
         weight = 4'b1001; in = 4'b0000; # 0;
-        print_if_failed(0, out);
+        tasks.print_if_failed(0, out);
         
         // Check identity (weight is 1, so no shift)
         weight = 4'b0000; in = 4'b0001; # 0;
-        print_if_failed(in<<required_shift, out);
+        tasks.print_if_failed(in<<required_shift, out);
 
         weight = 4'b0000; in = 4'b1101; # 0;
-        print_if_failed(in<<required_shift, out);
+        tasks.print_if_failed(in<<required_shift, out);
     end
 endmodule

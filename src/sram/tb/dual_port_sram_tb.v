@@ -1,4 +1,5 @@
 `include "dual_port_sram.v"
+`include "../tasks.v"
 
 module dual_port_sram_tb;
     localparam WIDTH = 32;
@@ -27,17 +28,6 @@ module dual_port_sram_tb;
     reg we = 0;
     reg oe = 0;
 
-    task print_if_failed;
-        input integer expected;
-        input integer actual;
-        begin
-            if (actual !== expected) begin
-                $display("Failed. Expected: %d, actual: %d", expected, actual);
-                $stop;
-            end
-        end
-    endtask
-
     task check_data_present;
         input local_we;
         input local_cs;
@@ -52,7 +42,7 @@ module dual_port_sram_tb;
                 end
 
                 if (i >= 2)
-                    print_if_failed(random_numbers[i-2], read_data);
+                    tasks.print_if_failed(random_numbers[i-2], read_data);
             end
         end
     endtask

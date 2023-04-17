@@ -1,4 +1,5 @@
 `include "square_lut_4_bit.v"
+`include "../tasks.v"
 
 module square_lut_4_bit_tb;
     localparam WIDTH = 4;
@@ -12,17 +13,6 @@ module square_lut_4_bit_tb;
         .out(out)
     );
 
-    task print_if_failed;
-        input integer expected;
-        input integer actual;
-        begin
-            if (actual !== expected) begin
-                $display("Failed. Expected: %d, actual: %d", expected, actual);
-                $stop;
-            end
-        end
-    endtask
-
     initial
     begin
         $dumpfile("square_lut_4_bit_tb.vcd");
@@ -33,7 +23,7 @@ module square_lut_4_bit_tb;
         for (integer i = -2 ** (WIDTH - 1); i < 2 ** (WIDTH-1); i = i + 1) begin
             in = i;
             # 1;
-            print_if_failed(i * i, out);
+            tasks.print_if_failed(i * i, out);
         end
     end
 endmodule

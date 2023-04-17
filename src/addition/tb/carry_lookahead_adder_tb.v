@@ -1,4 +1,5 @@
 `include "carry_lookahead_adder.v"
+`include "../tasks.v"
 
 module carry_lookahead_adder_tb;
     localparam WIDTH = 8;
@@ -19,17 +20,6 @@ module carry_lookahead_adder_tb;
         .carry_out(carry_out)
     );
 
-    task print_if_failed;
-        input integer expected; 
-        input integer actual;
-        begin
-            if (actual !== expected) begin
-                $display("Failed. Expected: %d, actual: %d", expected, actual);
-                $stop;
-            end
-        end
-    endtask
-
     initial
     begin
         $dumpfile("carry_lookahead_adder_tb.vcd");
@@ -49,10 +39,10 @@ module carry_lookahead_adder_tb;
                     # 1;
 
                     if (i + j + k >= 2 ** WIDTH) begin
-                        print_if_failed(i + j  + k - 2 ** WIDTH, sum);
-                        print_if_failed(1, carry_out);
+                        tasks.print_if_failed(i + j  + k - 2 ** WIDTH, sum);
+                        tasks.print_if_failed(1, carry_out);
                     end else
-                        print_if_failed(i + j + k, sum);
+                        tasks.print_if_failed(i + j + k, sum);
                 end
             end
         end
