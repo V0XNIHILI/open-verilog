@@ -24,7 +24,7 @@ module serial_max_tb;
 
     initial
     begin
-        $dumpfile("serial_max.vcd");
+        $dumpfile("serial_max_tb.vcd");
         $dumpvars(0,clk,rst,in,max);
     end
 
