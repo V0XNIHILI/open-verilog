@@ -1,3 +1,5 @@
+`include "circular_adder.v"
+
 module circular_counter
     /*
      This module adds 1 to its current state every clock cycle, 
@@ -14,17 +16,22 @@ module circular_counter
         output reg unsigned [WIDTH-1:0] out
     );
 
+    wire [WIDTH-1:0] temp_out;
+
+    circular_adder #(.WIDTH(WIDTH)) circular_adder_inst
+    (
+        .a(out),
+        .b(4'd1),
+        .max(max),
+        .sum(temp_out)
+    );
+
     always @(posedge clk) begin
         if (rst) begin
             out <= 0;
         end else begin
-            if (enable) begin
-                if (out == max) begin
-                    out <= 0;
-                end else begin
-                    out <= out + 1;
-                end
-            end
+            if (enable)
+                out <= temp_out;
         end
     end
 
