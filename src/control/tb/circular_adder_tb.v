@@ -1,7 +1,7 @@
-`include "circular_adder.v"
+`include "circular_counter.v"
 `include "../tasks.v"
 
-module circular_adder_tb;
+module circular_counter_tb;
     localparam WIDTH = 4;
 
     localparam MAX = 2;
@@ -16,7 +16,7 @@ module circular_adder_tb;
     reg unsigned [WIDTH-1:0] max;
     wire unsigned [WIDTH-1:0] out;
 
-    circular_adder #(.WIDTH(WIDTH)) circular_adder_inst
+    circular_counter #(.WIDTH(WIDTH)) circular_counter_inst
     (
         .clk(clk),
         .rst(rst),
@@ -27,7 +27,7 @@ module circular_adder_tb;
 
     initial
     begin
-        $dumpfile("circular_adder_tb.vcd");
+        $dumpfile("circular_counter_tb.vcd");
         $dumpvars(0,clk,rst,en,max,out);
     end
 

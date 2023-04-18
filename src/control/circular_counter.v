@@ -1,4 +1,4 @@
-module circular_adder
+module circular_counter
     /*
      This module adds 1 to its current state every clock cycle, 
      when its enable pin is high. It is a circular adder, so if
