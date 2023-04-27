@@ -29,7 +29,6 @@ def get_adder_tree_str(n_og_inputs: int, prevent_overflow: bool):
 
         table.append((out, n_bypass))
 
-        # adder_tree_str += f"\n// ---< out: {out}, bypass: {n_bypass} >---\n"
         adder_tree_str += f"\n\twire [{out}-1:0] layer_{layer_index} [WIDTH+{layer_index+1 if prevent_overflow else ''}-1:0];\n\n"
 
         input_source = f"layer_{layer_index-1}" if layer_index > 0 else "in"
@@ -40,9 +39,6 @@ def get_adder_tree_str(n_og_inputs: int, prevent_overflow: bool):
             previous_layer_input = ""
 
             if len(table) > 1 and table[-2][1] == 1 and i == out-1:
-                # print(table)
-                # print((table[-2]))
-                # print(table[-2][0]+table[-2][1]-1)
                 previous_layer_input = " + " + (f"layer_{layer_index-2}[{table[-3][0]+table[-3][1]-1}]" if layer_index > 1 else f"in[{n_og_inputs-1}]")
                 sum_indices = [2*i]
 
