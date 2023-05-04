@@ -29,5 +29,8 @@ tb.dSYM
 # iverilog
 *.iv
 
+# QuestaSim
+work
+
 # macOS
 .DS_Store

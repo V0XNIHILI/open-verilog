@@ -29,7 +29,7 @@ def get_adder_tree_str(n_og_inputs: int, prevent_overflow: bool):
 
         table.append((out, n_bypass))
 
-        adder_tree_str += f"\n\twire [{out}-1:0] layer_{layer_index} [WIDTH+{layer_index+1 if prevent_overflow else ''}-1:0];\n\n"
+        adder_tree_str += f"\n\twire [WIDTH+{layer_index+1 if prevent_overflow else ''}-1:0] layer_{layer_index} [{out}-1:0];\n\n"
 
         input_source = f"layer_{layer_index-1}" if layer_index > 0 else "in"
 
