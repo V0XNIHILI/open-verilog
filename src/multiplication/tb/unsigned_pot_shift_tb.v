@@ -1,4 +1,4 @@
-`include "unsigned_pot_shift.v"
+`include "unsigned_pot_shift.sv"
 `include "../tasks.v"
 
 module pot_shift_tb;
