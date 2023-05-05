@@ -13,7 +13,7 @@ def generate_layer(n_inputs: int):
 
     return n_outputs, n_bypass
 
-def get_adder_tree_str(n_og_inputs: int, prevent_overflow: bool):
+def get_adder_tree_str(n_og_inputs: int, prevent_overflow: bool, signed: bool):
     n_inputs = n_og_inputs
 
     out = -1
@@ -22,6 +22,8 @@ def get_adder_tree_str(n_og_inputs: int, prevent_overflow: bool):
 
     table = []
 
+    signed_prefix = "signed" if signed else ""
+
     adder_tree_str  = ""
 
     while out != 1 or n_bypass != 0:
@@ -29,7 +31,7 @@ def get_adder_tree_str(n_og_inputs: int, prevent_overflow: bool):
 
         table.append((out, n_bypass))
 
-        adder_tree_str += f"\n\twire [WIDTH+{layer_index+1 if prevent_overflow else ''}-1:0] layer_{layer_index} [{out}-1:0];\n\n"
+        adder_tree_str += f"\n\twire{' ' + signed_prefix + ' '}[WIDTH+{layer_index+1 if prevent_overflow else ''}-1:0] layer_{layer_index} [{out}-1:0];\n\n"
 
         input_source = f"layer_{layer_index-1}" if layer_index > 0 else "in"
 
@@ -54,15 +56,16 @@ def get_adder_tree_str(n_og_inputs: int, prevent_overflow: bool):
 
     return adder_tree_str
 
-def generate_adder_tree_n_inputs(n_inputs: int, extra_out_bits: int, adder_tree_str: str):
-    with open("adder_tree_n_inputs.v.jinja2") as t:
+def generate_adder_tree_n_inputs(n_inputs: int, extra_out_bits: int, signed: bool, adder_tree_str: str):
+    with open("adder_tree_signed_n_inputs_po.v.jinja2") as t:
         template = Template(t.read())
 
-        with open("adder_tree_" + str(n_inputs) + "_inputs.v", "w") as r:
+        with open("adder_tree_" + ("signed_" if signed else "") + str(n_inputs) +  "_inputs" + ("_po" if extra_out_bits != 0 else "" ) + ".v", "w") as r:
             r.write(
                 template.render(
                     adder_tree_str=adder_tree_str,
                     n_inputs=n_inputs,
+                    signed=signed,
                     extra_out_bits=extra_out_bits
                 )
             )
@@ -72,12 +75,14 @@ if __name__ == "__main__":
 
     parser.add_argument("-n", "--n_inputs", type=int, help="The number of inputs of the adder tree", default=4)
     parser.add_argument("-po", "--prevent_overflow", action="store_true", help="Prevent overflow by adding a bit to the output of each layer")
+    parser.add_argument("-s", "--signed", action="store_true", help="Use signed inputs")
     args = parser.parse_args()
 
     n_inputs = args.n_inputs
     prevent_overflow = args.prevent_overflow
-    adder_tree_str = get_adder_tree_str(n_inputs, prevent_overflow)
+    signed = args.signed
+    adder_tree_str = get_adder_tree_str(n_inputs, prevent_overflow, signed)
 
     extra_out_bits = math.ceil(math.log2(n_inputs)) if prevent_overflow else 0
 
-    generate_adder_tree_n_inputs(n_inputs, extra_out_bits, adder_tree_str)
+    generate_adder_tree_n_inputs(n_inputs, extra_out_bits, signed, adder_tree_str)

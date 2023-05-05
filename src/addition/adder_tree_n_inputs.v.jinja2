@@ -1,9 +1,0 @@
-module adder_tree_{{n_inputs}}_inputs
-    #(parameter WIDTH = 8)
-    (
-        input [{{n_inputs}}-1:0][WIDTH-1:0] in,
-        output [WIDTH+{{extra_out_bits}}-1:0] out
-    );
-{{ adder_tree_str }}
-endmodule
-
