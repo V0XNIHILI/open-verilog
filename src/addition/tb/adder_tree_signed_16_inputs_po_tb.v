@@ -4,7 +4,7 @@ module adder_tree_signed_16_inputs_po_tb;
     localparam WIDTH = 4;
     localparam N_INPUTS = 16;
 
-    reg signed [N_INPUTS-1:0][WIDTH-1:0] in;
+    reg signed [WIDTH-1:0] in [N_INPUTS-1:0];
     wire signed [$clog2(N_INPUTS)+WIDTH-1:0] out;
 
     adder_tree_signed_16_inputs_po #(.WIDTH(WIDTH)) adder_tree_signed_16_inputs_po_inst
@@ -27,7 +27,7 @@ module adder_tree_signed_16_inputs_po_tb;
     initial
     begin
         $dumpfile("adder_tree_tb.vcd");
-        $dumpvars(0,in,out);
+        $dumpvars(0,out);
     end
 
     initial begin
