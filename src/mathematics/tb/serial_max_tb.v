@@ -14,7 +14,7 @@ module serial_max_tb;
     reg signed [WIDTH-1:0] in;
     wire signed [WIDTH-1:0] max;
 
-    serial_max  #(.WIDTH(WIDTH)) serial_max_inst
+    serial_max #(.WIDTH(WIDTH)) serial_max_inst
     (
         .clk(clk),
         .rst(rst),
