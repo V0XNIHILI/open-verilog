@@ -11,8 +11,8 @@ module unsigned_pot_shift
     wire weight_sign = weight[WEIGHT_BIT_WIDTH-1];
     wire [WEIGHT_BIT_WIDTH-2:0] weight_abs = weight[WEIGHT_BIT_WIDTH-2:0];
 
-    // Can make this OUTPUT_BIT_WIDTH-1 as we know that the sign bit is 0
-    wire signed [OUTPUT_BIT_WIDTH-1:0] out_abs = in <<< weight_abs;
+    // Can make this OUTPUT_BIT_WIDTH-2 as we know that the sign doesnt matter here yets
+    wire signed [OUTPUT_BIT_WIDTH-2:0] out_abs = in <<< weight_abs;
 
     assign out = weight_sign == 1'b1 ? -out_abs : out_abs;
 
