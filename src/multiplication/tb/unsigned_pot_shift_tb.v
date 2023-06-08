@@ -23,7 +23,9 @@ module pot_shift_tb;
                 for (integer w = 0; w < 2 ** (WEIGHT_BIT_WIDTH-1); w = w + 1) begin
                     in = i;
                     weight = w + (w_sign == -1 ? 2 ** (WEIGHT_BIT_WIDTH-1) : 0);
-                    # 0;
+                    
+                    #1;
+                    
                     tasks.print_if_failed(w_sign * in * (2 ** w), out);
                 end
             end
