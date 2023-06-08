@@ -3,7 +3,7 @@
 
 module serial_parallel_argmax_signed_16_inputs_tb;
     localparam WIDTH = 8;
-    localparam INDEX_WIDTH = 8;
+    localparam ARGMAX_WIDTH = 8;
 
     /* Make a regular pulsing clock. */
     reg clk = 0;
@@ -11,15 +11,15 @@ module serial_parallel_argmax_signed_16_inputs_tb;
 
     reg rst = 1;
 
-    reg signed [16-1:0][WIDTH-1:0] in;
+    reg signed [WIDTH-1:0] in [16-1:0];
     wire signed [WIDTH-1:0] max;
-    wire [INDEX_WIDTH-1:0] argmax;
+    wire [ARGMAX_WIDTH-1:0] argmax;
 
     wire signed [WIDTH-1:0] in15;
 
     integer num_inputs = 16;
 
-    serial_parallel_argmax_signed_16_inputs #(.WIDTH(WIDTH), .INDEX_WIDTH(INDEX_WIDTH)) serial_parallel_argmax_signed_16_inputs_inst
+    serial_parallel_argmax_signed_16_inputs #(.WIDTH(WIDTH), .ARGMAX_WIDTH(ARGMAX_WIDTH)) serial_parallel_argmax_signed_16_inputs_inst
     (
         .clk(clk),
         .rst(rst),

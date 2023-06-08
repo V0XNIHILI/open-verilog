@@ -1,5 +1,7 @@
+`include "serial_parallel_argmax.v"
+
 module serial_argmax
-    /*
+    /**
      * This module finds the index of the maximum value in a stream of values.
      * It is a serial implementation of the argmax function.
      *
@@ -16,26 +18,22 @@ module serial_argmax
         input clk,
         input rst,
         input signed [WIDTH-1:0] in,
-        output reg unsigned [ARGMAX_WIDTH-1:0] argmax
+        output reg [ARGMAX_WIDTH-1:0] argmax
     );
 
-    reg signed [WIDTH-1:0] max;
-    reg was_reset;
+    serial_parallel_argmax #(
+        .WIDTH(WIDTH),
+        .ARGMAX_WIDTH(ARGMAX_WIDTH),
+        .IN_ARGMAX_WIDTH(1),
+        .MAX_IN_ARGMAX(1)
+    ) serial_parallel_argmax_inst (
+        .clk(clk),
+        .rst(rst),
 
-    always @(posedge clk) begin
-        if (rst) begin
-            max <= -2**(WIDTH-1);
-            argmax <= 0;
-            was_reset <= 1;
-        end else begin
-            if (was_reset) begin
-                was_reset <= 0;
-            end else if (in > max) begin
-                max = in;
+        .in(in),
+        .in_argmax(1'b0),
 
-                argmax <= argmax + 1;
-            end
-        end
-    end
+        .argmax(argmax)
+    );
 
 endmodule
