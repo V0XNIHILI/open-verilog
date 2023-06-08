@@ -15,6 +15,9 @@ tb.dSYM
 *_test.cpp
 *.v.cpp
 
+# Yosys scripts
+*.ys
+
 # Output plots
 *.dot
 *.ps
