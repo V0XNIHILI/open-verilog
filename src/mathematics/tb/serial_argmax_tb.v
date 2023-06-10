@@ -20,6 +20,7 @@ module serial_argmax_tb;
     (
         .clk(clk),
         .rst(rst),
+        .enable(1),
         .in(in),
         .argmax(argmax)
     );

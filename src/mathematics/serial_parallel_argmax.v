@@ -3,7 +3,7 @@ module serial_parallel_argmax
     (
         input clk,
         input rst,
-
+        input enable,
         input signed [WIDTH-1:0] in,
         input [IN_ARGMAX_WIDTH-1:0] in_argmax,
         output reg [ARGMAX_WIDTH-1:0] argmax
@@ -19,7 +19,7 @@ module serial_parallel_argmax
             input_counter <= 0;
             
             argmax <= 0;
-        end else begin
+        end else if (enable) begin
             if (in > max) begin
                 max = in;
 

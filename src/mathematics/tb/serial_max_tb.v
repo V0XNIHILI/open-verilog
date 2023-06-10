@@ -18,6 +18,7 @@ module serial_max_tb;
     (
         .clk(clk),
         .rst(rst),
+        .enable(1),
         .in(in),
         .max(max)
     );

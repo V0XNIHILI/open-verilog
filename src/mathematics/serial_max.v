@@ -3,6 +3,7 @@ module serial_max
     (
         input clk,
         input rst,
+        input enable,
         input signed [WIDTH-1:0] in,
         output reg signed [WIDTH-1:0] max
     );
@@ -10,7 +11,7 @@ module serial_max
     always @(posedge clk) begin
         if (rst) begin
             max = -2**(WIDTH-1);
-        end else begin
+        end else if (enable) begin
             if (in > max) begin
                 max = in;
             end

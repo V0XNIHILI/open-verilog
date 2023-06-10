@@ -8,6 +8,7 @@ module serial_argmax
      * Inputs:
      *  - clk: Clock
      *  - rst: Reset
+     *  - enable: Enable
      *  - in: Input value
      *
      * Outputs:
@@ -17,6 +18,7 @@ module serial_argmax
     (
         input clk,
         input rst,
+        input enable,
         input signed [WIDTH-1:0] in,
         output reg [ARGMAX_WIDTH-1:0] argmax
     );
@@ -29,6 +31,8 @@ module serial_argmax
     ) serial_parallel_argmax_inst (
         .clk(clk),
         .rst(rst),
+
+        .enable(enable),
 
         .in(in),
         .in_argmax(1'b0),

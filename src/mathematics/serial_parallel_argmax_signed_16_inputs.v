@@ -35,6 +35,8 @@ module serial_parallel_argmax_signed_16_inputs
         .clk(clk),
         .rst(rst),
 
+        .enable(enable),
+
         .in(parallel_max),
         .in_argmax(parallel_argmax),
 
