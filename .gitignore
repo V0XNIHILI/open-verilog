@@ -1,10 +1,10 @@
 # Generated verilog files
 src/boolean_algebra/*4.v
 src/boolean_algebra/*3.v
-src/boolean_algebra/maj_**_bit.v
-src/addition/parallel_counter_**_bit.v
-src/addition/wallace_popcount_**_bit.v
-src/addition/adder_tree_**.v
+src/boolean_algebra/maj_*_bit.v
+src/addition/parallel_counter_*_bit.v
+src/addition/wallace_popcount_*_bit.v
+src/addition/adder_tree_*.v
 src/mathematics/square_lut_*_bit.v
 
 # Binaries from compiling tests
