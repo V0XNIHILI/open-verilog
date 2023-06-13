@@ -21,7 +21,7 @@ module serial_parallel_argmax
             argmax <= 0;
         end else if (enable) begin
             if (in > max) begin
-                max = in;
+                max <= in;
 
                 argmax <= in_argmax + (input_counter * MAX_IN_ARGMAX);
             end
