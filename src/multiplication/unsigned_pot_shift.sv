@@ -8,11 +8,11 @@ module unsigned_pot_shift
         output signed [OUTPUT_BIT_WIDTH-1:0] out
     );
 
-    wire weight_sign = weight[WEIGHT_BIT_WIDTH-1];
-    wire [WEIGHT_BIT_WIDTH-2:0] weight_abs = weight[WEIGHT_BIT_WIDTH-2:0];
+    wire weight_sign;
+    wire [WEIGHT_BIT_WIDTH-2:0] weight_abs;
 
-    wire signed [OUTPUT_BIT_WIDTH-1:0] out_abs = in <<< weight_abs;
+    assign {weight_sign, weight_abs} = weight;
 
-    assign out = weight_sign == 1'b1 ? -out_abs : out_abs;
+    assign out = (weight_sign == 1'b1 ? -in : in) <<< weight_abs;
 
 endmodule
