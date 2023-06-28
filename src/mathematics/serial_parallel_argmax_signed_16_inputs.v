@@ -11,8 +11,8 @@ module serial_parallel_argmax_signed_16_inputs
 
         input signed [WIDTH-1:0] in [16-1:0],
 
-        output reg signed [WIDTH-1:0] max,
-        output reg [ARGMAX_WIDTH-1:0] argmax
+        output signed [WIDTH-1:0] max,
+        output [ARGMAX_WIDTH-1:0] argmax
     );
 
     wire signed [WIDTH-1:0] parallel_max;
@@ -40,7 +40,8 @@ module serial_parallel_argmax_signed_16_inputs
         .in(parallel_max),
         .in_argmax(parallel_argmax),
 
-        .argmax(argmax)
+        .argmax(argmax),
+        .max(max)
     );
 
 endmodule

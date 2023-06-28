@@ -6,10 +6,9 @@ module serial_parallel_argmax
         input enable,
         input signed [WIDTH-1:0] in,
         input [IN_ARGMAX_WIDTH-1:0] in_argmax,
-        output reg [ARGMAX_WIDTH-1:0] argmax
+        output reg [ARGMAX_WIDTH-1:0] argmax,
+        output reg signed [WIDTH-1:0] max
     );
-
-    reg signed [WIDTH-1:0] max;
 
     reg [ARGMAX_WIDTH-1:0] input_counter;
 
